@@ -3,9 +3,12 @@ import React from "react";
 import { PRODUCTS } from "@/assets/products";
 import { ProductListItem } from "../../components/product-list-item";
 import { ListHeader } from "@/src/components/list-header";
-type Props = {};
+import { useAuth } from "@/src/providers/auth-provider";
 
-const Home = (props: Props) => {
+const Home = () => {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <View>
       <FlatList
