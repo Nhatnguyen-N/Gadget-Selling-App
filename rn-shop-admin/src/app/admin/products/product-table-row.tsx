@@ -35,6 +35,19 @@ export const ProductTableRow = ({
     });
     setIsProductModalOpen(true);
   };
+  const handleDeleteClick = (product: CreateOrUpdateProductSchema) => {
+    setCurrentProduct({
+      title: product.title,
+      category: product.category,
+      price: product.price,
+      maxQuantity: product.maxQuantity,
+      heroImage: product.heroImage,
+      images: product.images,
+      slug: product.slug,
+      intent: "update",
+    });
+    setIsDeleteModalOpen(true);
+  };
 
   return (
     <TableRow key={product.id}>
@@ -86,8 +99,8 @@ export const ProductTableRow = ({
         <Button
           variant="ghost"
           size="icon"
-          onClick={() =>
-            setCurrentProduct({
+          onClick={() => {
+            handleDeleteClick({
               title: product.title,
               category: product.category.id.toString(),
               price: product.price?.toString() ?? "",
@@ -95,13 +108,10 @@ export const ProductTableRow = ({
               images: [],
               slug: product.slug,
               intent: "update",
-            })
-          }
+            });
+          }}
         >
-          <Trash2
-            className="h-4 w-4"
-            onClick={() => setIsDeleteModalOpen(true)}
-          />
+          <Trash2 className="h-4 w-4" />
         </Button>
       </TableCell>
     </TableRow>

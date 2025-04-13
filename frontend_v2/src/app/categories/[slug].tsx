@@ -1,20 +1,26 @@
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { Redirect, Stack, useLocalSearchParams } from "expo-router";
-import { CATEGORIES } from "@/assets/categories";
-import { PRODUCTS } from "@/assets/products";
 import { ProductListItem } from "@/src/components/product-list-item";
+import { getCategoryAndProducts } from "@/src/api/api";
 
 type Props = {};
 
 const Category = (props: Props) => {
   const { slug } = useLocalSearchParams<{ slug: string }>();
-
-  const category = CATEGORIES.find((category) => category.slug === slug);
-  if (!category) {
+  const { data, error, isLoading } = getCategoryAndProducts(slug);
+  if (isLoading) return <ActivityIndicator />;
+  if (error || !data) return <Text>Error: {error?.message}</Text>;
+  if (!data.category || !data.products) {
     return <Redirect href={"/+not-found"} />;
   }
-
-  const products = PRODUCTS.filter((product) => product.category.slug === slug);
+  const { category, products } = data;
 
   return (
     <View style={styles.container}>

@@ -9,7 +9,13 @@ const nextConfig: NextConfig = {
         hostname: 'lilixcdslcslpmkjifjx.supabase.co'
       }
     ]
-  }
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '3mb',
+    },
+  },
+
 };
 
 export default nextConfig;

@@ -1,4 +1,3 @@
-import { CATEGORIES } from "@/assets/categories";
 import { FontAwesome } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import {
@@ -12,8 +11,13 @@ import {
 } from "react-native";
 import { useCartStore } from "../store/cart-store";
 import { supabase } from "../lib/supabase";
+import { Tables } from "../types/database.types";
 
-export const ListHeader = () => {
+export const ListHeader = ({
+  categories,
+}: {
+  categories: Tables<"category">[];
+}) => {
   const { getItemCount } = useCartStore();
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -67,7 +71,7 @@ export const ListHeader = () => {
       <View style={styles.categoriesContainer}>
         <Text style={styles.sectionTitle}>Categories</Text>
         <FlatList
-          data={CATEGORIES}
+          data={categories}
           renderItem={({ item }) => (
             <Link
               asChild

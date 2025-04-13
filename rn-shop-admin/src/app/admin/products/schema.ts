@@ -9,10 +9,13 @@ export const createOrUpdateProductSchema = z.object({
   images: z
     .any()
     .refine(
-      (files: FileList | null) => files instanceof FileList && length > 0,
-      { message: 'At least one image is required' }
-    )
-    .transform((files: FileList | null) => (files ? Array.from(files) : [])),
+      (files: FileList | null) => files instanceof FileList && files.length > 0,
+      { message: 'At least one image is required' })
+    .transform((files: FileList | null) => (files ? Array.from(files) : [])).optional(),
+
+  // images: z
+  //   .array(z.any())
+  //   .min(1, { message: 'At least one image is required' }),
   intent: z
     .enum(['create', 'update'], {
       message: 'Intent must be either create or update',
