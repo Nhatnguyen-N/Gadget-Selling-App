@@ -19,10 +19,16 @@ const AuthContext = createContext<AuthData>({
   mounting: true,
   user: null,
 });
-
+type UserProps = {
+  avatar_url: string;
+  created_at: string | null;
+  email: string;
+  id: string;
+  type: string | null;
+};
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserProps | null>(null);
   const [mounting, setMounting] = useState(true);
 
   useEffect(() => {
