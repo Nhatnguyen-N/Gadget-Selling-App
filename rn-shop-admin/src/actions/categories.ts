@@ -73,3 +73,20 @@ export const deleteCategory = async (id: number) => {
   const { error } = await supabase.from('category').delete().match({ id });
   if (error) throw new Error(`Error deleting category: ${error.message}`)
 }
+
+export const getCategoryData = async () => {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.from('category')
+    .select('name,products:product(id)');
+
+  if (error) throw new Error(`Error fetching category data: ${error.message}`);
+
+  const categoryData = data.map(
+    (category: { name: string, products: { id: number }[] }) => ({
+      name: category.name,
+      products: category.products.length,
+    })
+  )
+  return categoryData;
+}

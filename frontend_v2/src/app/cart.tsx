@@ -93,8 +93,6 @@ const Cart = () => {
               })),
               {
                 onSuccess: () => {
-                  console.log("abcd");
-
                   alert("Order created successfully");
                   resetCart();
                 },
