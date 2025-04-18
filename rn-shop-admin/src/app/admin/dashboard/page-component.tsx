@@ -31,15 +31,22 @@ type CategoryData = {
   name: string;
   products: number;
 };
+type LatesUsers = {
+  id: string;
+  email: string;
+  date: string | null;
+};
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const PageComponent = ({
   monthlyOrders,
   categoryData,
+  latesUsers,
 }: {
   monthlyOrders: MonthlyOrderData[];
   categoryData: CategoryData[];
+  latesUsers: LatesUsers[];
 }) => {
   return (
     <div className="flex-1 p-8 overflow-auto">
@@ -58,7 +65,7 @@ const PageComponent = ({
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey={"order"} fill="#8884d8" />
+                <Bar dataKey={"orders"} fill="#8884d8" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -112,6 +119,30 @@ const PageComponent = ({
                 <Bar dataKey="products" fill="#82ca9d" />
               </BarChart>
             </ResponsiveContainer>
+          </CardContent>
+        </Card>
+        {/* Latest Users */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Latest Users</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Date</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {latesUsers.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.date}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </CardContent>
         </Card>
       </div>

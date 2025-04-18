@@ -7,13 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuid } from "uuid";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
